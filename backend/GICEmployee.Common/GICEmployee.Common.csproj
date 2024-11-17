@@ -6,8 +6,4 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\GICEmployee.Common\GICEmployee.Common.csproj" />
-  </ItemGroup>
-
 </Project>
