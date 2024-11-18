@@ -7,11 +7,11 @@ namespace GICEmployee.Application.Features.Cafe.Queries
     public class GetEmployeesByCafeQuery : IRequest<IEnumerable<GetEmployeeDto>>
     {
         [MaxLength(100, ErrorMessage = "Name must not exceed 100 characters.")]
-        public string? Cafe { get; set; }
+        public Guid? CafeId { get; set; }
 
-        public GetEmployeesByCafeQuery(string? cafe)
+        public GetEmployeesByCafeQuery(Guid? cafe)
         {
-            Cafe = cafe;
+            CafeId = cafe;
         }
     }
 }

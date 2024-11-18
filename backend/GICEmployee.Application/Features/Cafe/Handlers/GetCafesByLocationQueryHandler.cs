@@ -21,7 +21,7 @@ namespace GICEmployee.Application.Features.Cafe.Handlers
             Expression<Func<Entity.Cafe, bool>>? filter = null;
 
             if (!string.IsNullOrWhiteSpace(request.Location))
-                filter = cafe => cafe.Location.ToLower() == request.Location.ToLower();
+                filter = cafe => cafe.Location.ToLower().StartsWith(request.Location.ToLower());
 
             var sortedCafes = await _unitOfWork.CafeRepository.GetSelectAsync(
                     filter: filter,

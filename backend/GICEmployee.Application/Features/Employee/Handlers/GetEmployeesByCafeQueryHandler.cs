@@ -21,9 +21,9 @@ namespace GICEmployee.Application.Features.Cafe.Handlers
             var today = DateTime.Now;
             Expression<Func<Entity.Employee, bool>>? filter = null;
 
-            if (!string.IsNullOrWhiteSpace(request.Cafe))
+            if ((request.CafeId != null))
                 filter = employee
-                    => employee.EmployeeCafeRelationship != null && employee.EmployeeCafeRelationship.Cafe!.Name.ToLower() == request.Cafe.ToLower();
+                    => employee.EmployeeCafeRelationship != null && employee.EmployeeCafeRelationship.Cafe!.Id == request.CafeId;
 
             var sortedEmployees = await _unitOfWork.EmployeeRepository.GetSelectAsync(
                     filter: filter,

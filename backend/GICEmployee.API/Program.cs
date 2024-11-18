@@ -3,6 +3,17 @@ using GICEmployee.Infrastructure.Persistence;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// Add CORS services and configure policies
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowLocalhost3000", policy =>
+    {
+        policy.WithOrigins("http://localhost:3000")  // Allow requests from localhost:3000
+              .AllowAnyMethod()                     // Allow any HTTP method (GET, POST, PUT, etc.)
+              .AllowAnyHeader();                    // Allow any header
+    });
+});
+
 // Add configuration based on environment
 builder.Configuration
     .SetBasePath(Directory.GetCurrentDirectory())
@@ -21,6 +32,9 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
+
+// Use the CORS middleware
+app.UseCors("AllowLocalhost3000");
 
 // Run the database initializer
 using (var scope = app.Services.CreateScope())

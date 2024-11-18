@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace GICEmployee.API.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/employee")]
     public class EmployeeController : ControllerBase
     {
         private readonly IMediator _mediator;
@@ -27,7 +27,8 @@ namespace GICEmployee.API.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Get([FromQuery] string? cafe, CancellationToken cancellationToken)
+        [Route("getbycafe")]
+        public async Task<IActionResult> GetByCafe([FromQuery] Guid? cafe, CancellationToken cancellationToken)
         {
             var query = new GetEmployeesByCafeQuery(cafe);
             var employees = await _mediator.Send(query, cancellationToken);

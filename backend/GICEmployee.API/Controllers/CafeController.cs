@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace GICEmployee.API.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/cafe")]
     public class CafeController : ControllerBase
     {
         private readonly IMediator _mediator;
