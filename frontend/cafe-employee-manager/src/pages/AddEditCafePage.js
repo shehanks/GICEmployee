@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { TextField, Button, Box, Typography } from "@mui/material";
 import { useNavigate, useParams } from "react-router-dom";
+import config from "../config/config.js";
 
 const AddEditCafePage = () => {
   const [cafe, setCafe] = useState({
@@ -16,7 +17,7 @@ const AddEditCafePage = () => {
   useEffect(() => {
     if (id && id !== "new") {
       const fetchCafe = async () => {
-        const response = await fetch(`http://localhost:5109/api/cafe/${id}`);
+        const response = await fetch(`${config.apiBaseUrl}/cafe/${id}`);
         const data = await response.json();
         setCafe(data);
         setInitialCafe(data); // Set the initial data
@@ -38,8 +39,8 @@ const AddEditCafePage = () => {
     const method = id && id !== "new" ? "PUT" : "POST";
     const url =
       id && id !== "new"
-        ? `http://localhost:5109/api/cafe/${id}`
-        : "http://localhost:5109/api/cafe";
+        ? `${config.apiBaseUrl}/cafe/${id}`
+        : `${config.apiBaseUrl}/cafe`;
 
     await fetch(url, {
       method,

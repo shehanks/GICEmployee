@@ -12,6 +12,7 @@ import {
   MenuItem,
 } from "@mui/material";
 import { useNavigate, useParams } from "react-router-dom";
+import config from "../config/config.js";
 
 const AddEditEmployeePage = () => {
   const { id } = useParams(); // For editing an existing employee
@@ -29,14 +30,14 @@ const AddEditEmployeePage = () => {
 
   useEffect(() => {
     // Fetch cafes for dropdown
-    fetch("http://localhost:5109/api/cafe")
+    fetch(`${config.apiBaseUrl}/cafe`)
       .then((response) => response.json())
       .then((data) => setCafes(data))
       .catch((err) => console.error("Error fetching cafes:", err));
 
     if (id && id !== "new") {
       // Fetch employee details for editing
-      fetch(`http://localhost:5109/api/employee/${id}`)
+      fetch(`${config.apiBaseUrl}/employee/${id}`)
         .then((response) => response.json())
         .then((data) => {
           setEmployee(data);
@@ -69,8 +70,8 @@ const AddEditEmployeePage = () => {
     const method = id && id !== "new" ? "PUT" : "POST";
     const url =
       id && id !== "new"
-        ? `http://localhost:5109/api/employee/${id}`
-        : "http://localhost:5109/api/employee";
+        ? `${config.apiBaseUrl}/employee/${id}`
+        : `${config.apiBaseUrl}/employee`;
 
     const payload = {
       name: employee.name,
@@ -178,7 +179,7 @@ const AddEditEmployeePage = () => {
           value={employee.cafeId || ""}
           onChange={handleChange}
           fullWidth
-          required={false} // No longer required
+          required={false}
         >
           <MenuItem value="">None</MenuItem>{" "}
           {/* Option to not select any cafe */}

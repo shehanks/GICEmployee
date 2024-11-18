@@ -4,6 +4,7 @@ import { AgGridReact } from "ag-grid-react";
 import "ag-grid-community/styles/ag-grid.css";
 import "ag-grid-community/styles/ag-theme-alpine.css";
 import { useNavigate, useSearchParams } from "react-router-dom";
+import config from "../config/config.js";
 
 const EmployeePage = () => {
   const [employees, setEmployees] = useState([]);
@@ -14,8 +15,8 @@ const EmployeePage = () => {
   useEffect(() => {
     const fetchEmployees = async () => {
       const url = cafeId
-        ? `http://localhost:5109/api/employee/getbycafe?cafe=${cafeId}` // Fetch employees by cafe
-        : "http://localhost:5109/api/employee/getbycafe"; // Fetch all employees if no cafe is provided
+        ? `${config.apiBaseUrl}/employee/getbycafe?cafe=${cafeId}` // Fetch employees by cafe
+        : `${config.apiBaseUrl}/employee/getbycafe`; // Fetch all employees if no cafe is provided
       const response = await fetch(url);
       const data = await response.json();
       setEmployees(data);
@@ -37,7 +38,7 @@ const EmployeePage = () => {
       "Are you sure you want to delete this employee?"
     );
     if (confirmDelete) {
-      await fetch(`http://localhost:5109/api/employee/${id}`, {
+      await fetch(`${config.apiBaseUrl}/employee/${id}`, {
         method: "DELETE",
       });
       setEmployees(employees.filter((employee) => employee.id !== id));

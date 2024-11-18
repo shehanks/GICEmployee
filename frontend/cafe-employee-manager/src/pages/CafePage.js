@@ -4,6 +4,7 @@ import { AgGridReact } from "ag-grid-react";
 import "ag-grid-community/styles/ag-grid.css";
 import "ag-grid-community/styles/ag-theme-alpine.css";
 import { useNavigate } from "react-router-dom";
+import config from "../config/config.js";
 
 const CafePage = () => {
   const [cafes, setCafes] = useState([]);
@@ -12,8 +13,8 @@ const CafePage = () => {
 
   const fetchCafes = async (filterLocation = "") => {
     const url = filterLocation
-      ? `http://localhost:5109/api/cafe?location=${filterLocation}`
-      : "http://localhost:5109/api/cafe";
+      ? `${config.apiBaseUrl}/cafe?location=${filterLocation}`
+      : `${config.apiBaseUrl}/cafe`;
     const response = await fetch(url);
     const data = await response.json();
     setCafes(data);
@@ -36,7 +37,7 @@ const CafePage = () => {
       "Are you sure you want to delete this cafe?"
     );
     if (confirmDelete) {
-      await fetch(`http://localhost:5109/api/cafe/${id}`, {
+      await fetch(`${config.apiBaseUrl}/cafe/${id}`, {
         method: "DELETE",
       });
       setCafes(cafes.filter((cafe) => cafe.id !== id));
